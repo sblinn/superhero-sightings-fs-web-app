@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <title>Superhero Sightings</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <link th:href="@{../css/main.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="content-wrapper container">
+
+        <!-- all containers div-->
+        <div class="display-container container-fluid">
+
+            <!-- Header -->
+            <header class="header bg-light pt-4">
+                <nav class="navbar justify-content-center text-center">
+                    <div class="">
+                        <div>
+                            <h1>
+                                <a class="nav-link" href="/">Superhero Sightings</a>
+                            </h1>
+                            <hr>
+                        </div>
+                        <div>
+                            <ul class="nav nav-custom nav-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/sighting/add">Report Sighting</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" role="button"
+                                        href="#">Data Records</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/sighting/sightings">Sightings</a>
+                                        <a class="dropdown-item" href="/superhero/superheros">Superheros</a>
+                                        <a class="dropdown-item" href="/superpower/superpowers">Superpowers</a>
+                                        <a class="dropdown-item" href="/organization/organizations">Superhero Organizations</a>
+                                        <a class="dropdown-item active" href="/location/locations">Locations</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            </header>
+
+            <!-- content container-->
+            <div id="content-container" class="container-fluid justify-content-center">
+
+                <div id="locations-container" class="container-fluid bg-light my-3 p-4">
+
+                    <div class="entity-input-form-wrapper align-items-center">
+
+                        <h2 class="text-center pb-3">Edit Location</h2>
+
+                        <form action="#" method="POST" th:action="@{/location/editLocation}" 
+                                th:object="${location}" class="entity-input-form">
+                            
+                            <div>
+                                <input type="hidden" name="id" th:value="${location.id}"/>
+                            </div>
+                            
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Name</span>
+                                    <input type="text" name="location-name" 
+                                        id="location-name" th:field="*{name}" 
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('name')}">
+                                    <p class="alert alert-danger" 
+                                        th:each="error : ${#fields.errors('name')}" 
+                                        th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Street Address</span>
+                                    <input type="text" name="location-address" 
+                                        id="location-address" th:field="*{street_address}"
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('street_address')}">
+                                    <p class="alert alert-danger" 
+                                        th:each="error : ${#fields.errors('street_address')}" th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">City</span>
+                                    <input type="text" name="location-city" 
+                                        id="location-city" th:field="*{city}"
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('city')}">
+                                    <p class="alert alert-danger" 
+                                        th:each="error : ${#fields.errors('city')}" th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">State</span>
+                                    <input type="text" name="location-state" 
+                                        id="location-state" th:field="*{state}"
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('state')}">
+                                    <p class="alert alert-danger" 
+                                        th:each="error : ${#fields.errors('state')}" th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Country (abbr)</span>
+                                    <input type="text" name="location-country" 
+                                        id="location-country" th:field="*{country}"
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('country')}">
+                                    <p class="alert alert-danger" 
+                                        th:each="error : ${#fields.errors('country')}" th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Latitude</span>
+                                    <input type="text" name="location-latitude" 
+                                        id="location-latitude" th:field="*{latitude}"
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('latitude')}">
+                                    <p class="alert alert-danger"
+                                        th:each="error : ${#fields.errors('latitude')}" 
+                                        th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Longitude</span>
+                                    <input type="text" name="location-longitude" 
+                                        id="location-longitude" th:field="*{longitude}"
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('longitude')}">
+                                    <p class="alert alert-danger"
+                                        th:each="error : ${#fields.errors('longitude')}" 
+                                        th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Description</span>
+                                    <input type="text" name="location-description" 
+                                        id="location-description" th:field="*{description}"
+                                        class="form-control w-50" />
+                                </div>
+                                <div th:if="${#fields.hasErrors('description')}">
+                                    <p class="alert alert-danger"
+                                        th:each="error : ${#fields.errors('description')}" 
+                                        th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end m-1">
+                                <button type="submit" class="save-btn btn btn-sm btn-outline-secondary m-1">
+                                    save</button>
+                                <a class="cancel-btn btn btn-sm btn-outline-secondary m-1" 
+                                    href="locations">cancel</a>
+                            </div> 
+                        </form>
+                    </div>
+
+                </div>
+
+            </div> <!-- content-container -->
+
+        </div> <!-- display-container -->
+
+    </div>  <!-- content-wrapper --> 
+
+    <footer class="footer container mt-auto mb-0 py-5 bg-light">
+        <div class="container">
+            <p class="footer-text">Created: August 2022, Sara Blinn</p>
+        </div>
+    </footer>
+
+        <!-- Optional Javascript -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+
+</body>
+
+</html>

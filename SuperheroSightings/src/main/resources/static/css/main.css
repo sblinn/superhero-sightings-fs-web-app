@@ -1,0 +1,249 @@
+
+/* BUTTONS, LINKS & NAV-LINKS */
+
+.nav-custom .nav-item .nav-link {
+    color: rgb(151, 151, 151);
+}
+
+.nav-custom .nav-link.active {
+    background-color: rgb(235, 235, 235);
+    color: rgb(80, 80, 80);
+}
+
+.nav-custom .nav-link:hover {
+    color: rgb(80, 80, 80);
+}
+
+.nav-custom .nav-link:focus {
+    color: rgb(80, 80, 80);
+}
+
+
+.nav-custom .dropdown-item {
+    color: rgb(151, 151, 151);
+}
+
+.nav-custom .dropdown-item.active {
+    background-color: rgb(220, 220, 220);
+    color: rgb(100, 100, 100);
+}
+
+.nav-custom .dropdown-item:hover {
+    background-color: rgb(235, 235, 235);
+    color: rgb(100, 100, 100);
+}
+
+.nav-custom .dropdown-item:focus {
+    background-color: rgb(235, 235, 235);
+    color: rgb(100, 100, 100);
+}
+
+
+.btn-link {
+    color: black;
+    text-decoration:none;
+}
+
+.btn-link:hover {
+    color: rgb(100, 100, 100);
+    font-style: italic;
+}
+
+
+/* HTML */
+
+html {
+    min-height: 100%; 
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* BODY */
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* BODY-CONTENT-CONTAINER */
+
+.content-wrapper {
+    flex-grow: 1;
+    height: auto !important;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
+    margin: 0%;
+    padding: 0%;
+}
+
+
+/* DISPLAY-CONTAINER */
+
+.display-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-top: 0em;
+    padding-bottom: 2em;
+    padding-left: 0%;
+    padding-right: 0%;
+    height: auto;
+    min-height: 100%;
+}
+
+
+/* CONTENT CONTAINER */
+
+#content-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0%;
+    padding-right: 0%;
+    min-height: 100%;
+    height: auto;
+}
+
+
+footer {
+    position: relative;
+    bottom: 0;
+    min-width: 100vw;
+}
+
+
+/* ENTITY CONTAINERS */
+
+#recent-sightings-container,
+#organizations-container, 
+#superpowers-container,
+#locations-container,
+#superheros-container,
+#superpowers-container,
+#sightings-container {
+    width: 100%;
+}
+
+
+/* ENTITY INPUT-FORM SETTINGS */
+
+.entity-input-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.entity-input-form {
+    width: 75%;
+
+}
+
+.entity-input-form .input-group-text {
+    min-width: min-content;
+    font-weight: bold;
+}
+
+
+
+/* SETTINGS FOR TABLES DISPLAYING ALL OF ONE ENTITY 
+    - horizontal scroll is added for certain tables 
+        when the screen width is too small */
+
+#organizations-container .entity-table,
+#locations-container .entity-table,
+#superheros-container .entity-table,
+#sightings-container .entity-table {
+    display: flexbox;
+    overflow: auto;
+}
+
+    @media screen and (max-width: 650px) {
+
+        #organizations-container .entity-table {
+            display: block;
+            overflow: auto;
+        }
+
+    }
+
+    @media screen and (max-width: 780px) {
+
+        #locations-container .entity-table {
+            display: block;
+            overflow: auto;
+        }
+    }
+
+
+
+
+
+/* SIGHTINGS TABLE HEADER DROPDOWNS FOR SORTING */
+
+#sightings-container .filter-dropdown-item {
+    font-size: small;
+    color: rgb(151, 151, 151);
+}
+
+/* dropdown-item-text used to describe the sorting options */
+#sightings-container .dropdown-item-text {
+    color: rgb(100, 100, 100);
+}
+
+
+.note-sm {
+    font-size: smaller;
+    font-style: italic;
+}
+
+
+.toast:not(.show) {
+    display:block;
+}
+
+
+
+.recent-sightings-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#map-container {
+    display: flex;
+    justify-content: center;
+}
+
+#map {
+    height: 250px;
+    width: 450px;
+
+    max-height: 50vh;
+    max-width: 90vh;
+}
+
+.recent-sighting-card {
+    min-width: 50vh;
+    max-width: 75%;
+    width: 75%
+}
+
+.recent-sighting-card .card-header {
+    font-size: small;
+}
+
+.recent-sighting-card .recent-sighting-location-name {
+    font-size: smaller;
+}
+
+
+

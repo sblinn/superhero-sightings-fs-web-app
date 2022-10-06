@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <title>Superhero Sightings</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <link th:href="@{../css/main.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="content-wrapper container">
+
+        <!-- all containers div-->
+        <div class="display-container container-fluid">
+
+            <!-- Header -->
+            <header class="header bg-light pt-4">
+                <nav class="navbar justify-content-center text-center">
+                    <div class="">
+                        <div>
+                            <h1>
+                                <a class="nav-link" href="/">Superhero Sightings</a>
+                            </h1>
+                            <hr>
+                        </div>
+                        <div>
+                            <ul class="nav nav-custom nav-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/sighting/reportSighting">Report Sighting</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" role="button"
+                                        href="#">Data Records</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item active" href="/sighting/sightings">Sightings</a>
+                                        <a class="dropdown-item" href="/superhero/superheros">Superheros</a>
+                                        <a class="dropdown-item" href="/superpower/superpowers">Superpowers</a>
+                                        <a class="dropdown-item" href="/organization/organizations">Superhero Organizations</a>
+                                        <a class="dropdown-item" href="/location/locations">Locations</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            </header>
+
+            <!-- content container-->
+            <div id="content-container" class="container-fluid justify-content-center">
+
+                <div id="sightings-container" class="container-fluid bg-light my-3 p-4">
+
+                    <div class="entity-input-form-wrapper align-items-center">
+
+                        <h2 class="text-center pb-3">Edit Sighting</h2>
+
+                        <form action="#" method="POST" th:action="@{/sighting/editSighting}" 
+                                th:object="${sighting}" class="entity-input-form">
+                            
+                            <div>
+                                <input type="hidden" name="id" th:value="${sighting.id}"/>
+                            </div>
+                            
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Superhero</span>
+                                    <select class="form-select w-50" 
+                                        name="sighting-superhero" id="sighting-superhero" required>
+                                        <option th:each="superhero : ${superheros}" 
+                                                th:value="${superhero.id}" 
+                                                th:text="${superhero.name}"
+                                                th:field="*{superhero_id}"
+                                                th:selected="${sighting.superhero_id}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div th:if="${#fields.hasErrors('superhero_id')}">
+                                    <p class="alert alert-danger"
+                                        th:each="error : ${#fields.errors('superhero_id')}" 
+                                        th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text w-25">Location</span>
+                                    <select class="form-select w-50" 
+                                        name="sighting-location" id="sighting-location" required>
+                                        <option th:each="location : ${locations}" 
+                                                th:value="${location.id}" 
+                                                th:text="${location.name}"
+                                                th:field="*{location_id}"
+                                                th:selected="${sighting.location_id}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div th:if="${#fields.hasErrors('location_id')}">
+                                    <p class="alert alert-danger"
+                                        th:each="error : ${#fields.errors('location_id')}" 
+                                        th:text="${error}">
+                                        Error Message
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="input-group date">
+                                    <span class="input-group-text w-25">Date</span>
+                                    <input type="datetime-local" name="sighting-date" 
+                                        id="sighting-date" 
+                                        th:value="${sighting.date}"
+                                        class="form-control w-50" required/>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end m-1">
+                                <button type="submit" class="save-btn btn btn-sm btn-outline-secondary m-1">
+                                    save</button>
+                                <a class="cancel-btn btn btn-sm btn-outline-secondary m-1" 
+                                    href="sightings">cancel</a>
+                            </div> 
+                        </form>
+                    </div>
+
+                </div>
+
+            </div> <!-- content-container -->
+
+        </div> <!-- display-container -->
+
+    </div>  <!-- content-wrapper --> 
+
+    <footer class="footer container mt-auto mb-0 py-5 bg-light">
+        <div class="container">
+            <p class="footer-text">Created: August 2022, Sara Blinn</p>
+        </div>
+    </footer>
+
+        <!-- Optional Javascript -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+
+</body>
+
+</html>

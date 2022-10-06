@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <title>Superhero Sightings</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+        <link href="css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+
+    <script type="module" src="js/home.js"></script>
+    
+</head>
+
+<body>
+
+    <div class="content-wrapper container">
+
+        <!-- all containers div-->
+        <div class="display-container container-fluid pb-0">
+
+            <!-- Header -->
+            <header class="header bg-light pt-4">
+                <nav class="navbar justify-content-center text-center">
+                    <div class="">
+                        <div>
+                            <h1>
+                                <a class="nav-link" href="/">Superhero Sightings</a>
+                            </h1>
+                            <hr>
+                        </div>
+                        <div>
+                            <ul class="nav nav-custom nav-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="/">home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/sighting/add">Report Sighting</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button"
+                                        href="#">Data Records</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/sighting/sightings">Sightings</a>
+                                        <a class="dropdown-item" href="/superhero/superheros">Superheros</a>
+                                        <a class="dropdown-item" href="/superpower/superpowers">Superpowers</a>
+                                        <a class="dropdown-item" href="/organization/organizations">Superhero Organizations</a>
+                                        <a class="dropdown-item" href="/location/locations">Locations</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            </header>
+
+            <!-- content container-->
+            <div id="content-container" class="container-fluid justify-content-center">
+
+                <div class="container jumbotron jumbotron-fluid text-center pt-5 p-4">
+                    <div class="container bg-light p-4">
+                        <h2 class="pb-3">who we are.</h2>
+                        <p class="">
+                            The Hero Education and Relationship Organization (HERO) presents the most extensive 
+                            community-driven record of superhero sightings available. Visitors are encouraged 
+                            to report sightings of their local superheros.
+                        </p>
+                    </div>
+                </div>
+                
+                <div id="recent-sightings-container" class="container-fluid bg-light my-3 p-4">
+
+                    <h2 class="text-center pb-3">Recent Sightings</h2>
+                    <div id="map-container" class="container mb-4">
+                        <div id="map">
+                            
+                        </div>
+                       
+                        <input type="hidden" id="selected-location-latitude" 
+                            name="selected-location-latitude" 
+                            th:value="${selectedLocationLat}"/>
+                        <input type="hidden" id="selected-location-longitude" 
+                            name="selected-location-longitude" 
+                            th:value="${selectedLocationLng}"/>
+
+                        <input type="hidden" id="recent-sightings-latlngs"
+                            name="recent-sightings-latlngs"
+                            th:value="${recentSightingsLatLngs}"/>
+
+                        <script th:src="${googleMapSrcURL}" defer>
+
+                        </script>
+                    </div>
+
+                    <div class="container recent-sightings-wrapper" 
+                        th:each="sightingViewModel, count : ${recentVMSightings}">
+
+                        <div class="recent-sighting-card card m-2">
+                            <div class="text-start">
+                                <div class="card-header">
+                                    <a class="btn-link" 
+                                        th:href="@{/sighting/details(id=${sightingViewModel.sighting.id})}"
+                                        th:value="${sightingViewModel.sighting.date}"
+                                        th:text="${sightingViewModel.datetimeStr}">
+                                        Date</a>
+                                </div>
+                                <div class="card-body row">
+                                    <div class="col-md-8">
+                                        <div class="recent-sighting-superhero-name">
+                                            <a class="btn-link" 
+                                                th:href="@{../superhero/details(id=${sightingViewModel.sighting.superhero_id})}"
+                                                th:value="${sightingViewModel.sighting.superhero_id}"
+                                                th:text="|${sightingViewModel.superhero.name}, |">
+                                                Superhero</a>
+                                        </div>
+                                        <div class="recent-sighting-location-name">
+                                            <a class="btn-link" 
+                                                th:href="@{../location/details(id=${sightingViewModel.sighting.location_id})}"
+                                                th:value="${sightingViewModel.sighting.location_id}"
+                                                th:text="${sightingViewModel.location.name}">
+                                                Location</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a class="btn details-btn btn-sm btn-outline-secondary m-2" 
+                                            th:href="@{/home(id=${sightingViewModel.location.id})}">
+                                            map</a>
+                                        <a class="btn details-btn btn-sm btn-outline-secondary m-2" 
+                                            th:href="@{/sighting/details(id=${sightingViewModel.sighting.id})}">
+                                            details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div>
+                    
+                </div> <!-- recent-sightings-container -->
+
+            </div> <!-- content-container -->
+
+        </div> <!-- display-container -->
+
+    </div>  <!-- content-wrapper --> 
+
+    <footer class="footer container mt-auto mb-0 py-5 bg-light">
+        <div class="container">
+            <p class="footer-text">Created: August 2022, Sara Blinn</p>
+        </div>
+    </footer>
+
+        <!-- Optional Javascript -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+
+        <script src="https://unpkg.com/@googlemaps/js-api-loader@1.0.0/dist/index.min.js"></script>
+
+</body>
+
+</html>
